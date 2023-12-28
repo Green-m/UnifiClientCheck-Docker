@@ -1,11 +1,18 @@
 version: '3'
 services:
   UniFiClientAlerts:
-    image: zsamuels28/unificlientalerts:latest
+    #image: zsamuels28/unificlientalerts:latest
+    image: unificlientalerts:custom
+    restart: unless-stopped
+    volumes:
+      - /etc/localtime:/etc/localtime:ro
+      - /xxxx/xxx/xxx/known_clients.json:/usr/src/myapp/src/known_clients.json
     environment:
       UNIFI_CONTROLLER_USER: ${UNIFI_CONTROLLER_USER}
       UNIFI_CONTROLLER_PASSWORD: ${UNIFI_CONTROLLER_PASSWORD}
       UNIFI_CONTROLLER_URL: ${UNIFI_CONTROLLER_URL}
+      GUEST_SUBNET: ${GUEST_SUBNET}
+      GUEST_SUBNET_MASK: ${GUEST_SUBNET_MASK}
       #UNIFI_SITE_ID: ${UNIFI_SITE_ID} # Uncomment if site id is different than default
       #KNOWN_MACS: ${KNOWN_MACS} # Uncomment to add known MAC Addresses separated by commas
       #CHECK_INTERVAL: ${CHECK_INTERVAL} # Uncomment for a check interval different than 60 seconds
