@@ -68,6 +68,11 @@ while (true) {
         $newDeviceFound = false;
 
         foreach ($clients as $client) {
+            // if no IP address, ignore.
+            if (empty($client->ip)) {
+                continue;
+            }
+
             if (!array_key_exists($client->mac, $knownClients) && 
                 !isInGuestlistedSubnet($client->ip, $guestSubnet, $guestSubnetMask))  {
                 $newDeviceFound = true;
